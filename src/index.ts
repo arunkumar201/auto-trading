@@ -36,6 +36,12 @@ app.get("/server-status", (req: Request, res: Response) => {
 	});
 });
 
+app.post("/server-status", (req: Request, res: Response) => {
+	res.status(200).json({
+		message: "Server is up running! ",
+	});
+});
+
 //middlewares
 app.use(cors({ credentials: true }));
 app.use(bodyParser.json());
