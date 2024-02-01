@@ -6,7 +6,7 @@
 		"moduleResolution": "NodeNext",
 		"noImplicitAny": true,
 		"baseUrl": "./src",
-		"outDir": "build", // Types should go into this directory.
+		"outDir": "dist", // Types should go into this directory.
 		"declaration": true, // Generate d.ts files
 		"pretty": true,
 		// "strict": true,
