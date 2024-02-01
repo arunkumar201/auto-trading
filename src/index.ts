@@ -24,6 +24,9 @@ const db = new Database(config.DATABASE_URI!, {
 	dbName: config.DB_NAME,
 } as ConnectOptions);
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 //Connect with DATABASE
 db.connect().catch((err: unknown) =>
 	console.error("Error connecting to database:", err)

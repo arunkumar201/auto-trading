@@ -5,8 +5,9 @@
 		"esModuleInterop": true,
 		"moduleResolution": "NodeNext",
 		"noImplicitAny": true,
-		"outDir": "dist",
 		"baseUrl": "./src",
+		"outDir": "build", // Types should go into this directory.
+		"declaration": true, // Generate d.ts files
 		"pretty": true,
 		// "strict": true,
 		"noUnusedLocals": false,
@@ -19,5 +20,11 @@
 		"sourceMap": true,
 		"types": ["node"]
 	},
-	"include": ["src/**/*"]
+	"include": ["src/**/*"],
+	"exclude": [
+		"node_modules",
+		"**/*.test.ts",
+		"./node_modules",
+		"./node_modules/*"
+	]
 }
