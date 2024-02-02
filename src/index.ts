@@ -41,7 +41,7 @@ app.get("/server-status", (req: Request, res: Response) => {
 app.post("/server-status", (req: Request, res: Response) => {
 	console.log("Hello Word")
 	const data=req?.body;
-	console.log(data,"req",res);
+	console.log(data,"-----------------------");
 	res.status(200).json({
 		message: "Server is up running! ",
 	});
