@@ -32,12 +32,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //getting server status
 app.get("/server-status", (req: Request, res: Response) => {
+	console.log("Hello Word")
 	res.status(200).json({
 		message: "Server is up running! ",
 	});
 });
 
 app.post("/server-status", (req: Request, res: Response) => {
+	console.log("Hello Word")
 	res.status(200).json({
 		message: "Server is up running! ",
 	});
