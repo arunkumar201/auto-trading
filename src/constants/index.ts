@@ -1,6 +1,18 @@
+import { ENVConfig } from "../config/env.config";
 import dotenv from "dotenv";
+
 dotenv.config();
 
-export const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
-export const DB_NAME = process.env.DB_NAME || "test-api-ts";
 export const PORT = process.env.PORT || 8000;
+export const BINANCE = "binance";
+
+export const REDIS_CONNECTION_OPTIONS = {
+	port: parseInt(ENVConfig.REDIS_PORT),
+	host: ENVConfig.REDIS_HOST,
+	username: "default",
+	password: ENVConfig.REDIS_PASSWORD,
+	retryStrategy: () => {
+		console.timeLog("reconnectStrategy", "reconnectStrategy");
+		return 500;
+	},
+};
