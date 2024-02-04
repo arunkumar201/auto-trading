@@ -8,10 +8,10 @@ const { binanceClient } = require("./client");
  *
  * @example
  * const orderData = {
- *     symbol: "XLMETH",
- *     side: "BUY",
- *     quantity: "1000",
- *     price: "0.002",
+    symbol: "XLMETH",
+	side: "BUY",
+	quantity: "1000",
+	type: "MARKET",
  * };
  *
  * await placeOrder(orderData);
@@ -20,7 +20,7 @@ const placeOrder=async (orderData) => {
 	console.log(orderData);
 	try {
 		const details = await binanceClient.order(orderData);
-		console.log(JSON.stringify(details));
+		console.log("Order Placed details", JSON.stringify(details));
 	} catch (error) {
 		console.error("🚀 ~ placeOrder ~ error:", error);
 	}

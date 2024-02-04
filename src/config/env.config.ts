@@ -10,9 +10,7 @@ class Config {
 	public REDIS_PORT: string | undefined;
 	public REDIS_PASSWORD: string | undefined;
 	public REDIS_USERNAME: string | undefined;
-	public ADMIN_EMAIL: string | undefined;
 	public PORT: string | undefined;
-	public REDIS_URL: string | undefined;
 	private readonly DEFAULT_DATABASE_URI = "mongodb://127.0.0.1:27017";
 
 	constructor() {
@@ -22,7 +20,6 @@ class Config {
 		this.REDIS_PASSWORD = process.env.REDIS_PASSWORD;
 		this.REDIS_USERNAME = process.env.REDIS_USERNAME;
 		this.SECRET = process.env.SECRET;
-		this.REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 	}
 
 	public validateConfig(): void {
