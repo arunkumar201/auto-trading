@@ -30,6 +30,8 @@ yarn
 ```bash
 yarn start:prod
 ```
+## MQL4 WEB request URL
+- HOST_URL/stock/auto-trading
 
 ## Step 4: Run Binance Service Script
 
