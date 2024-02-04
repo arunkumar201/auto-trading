@@ -22,9 +22,9 @@ export const handleAutoTrading = async (req: Request, res: Response) => {
 		await autoTradingLoadBalancer.distributeJob(JSON.stringify(jobData));
 
 		res.status(200).json({
-			message: "Auto Trading",
+			message: "Auto Trading-running",
 			result:
-				"Order has been Place successfully and Currently Processing by Broker",
+				"The order has been placed successfully and is currently being processed by the broker.",
 		});
 	} catch (error: unknown) {
 		console.error("Error:", error);

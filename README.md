@@ -30,7 +30,7 @@ yarn
 ```bash
 yarn start:prod
 ```
-
+ 
 ## Step 4: Run Binance Service Script
 
 - Execute the Binance service script to enable communication with the Binance platform. Run the following command:
