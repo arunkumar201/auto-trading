@@ -4,7 +4,7 @@
 		"target": "es6",
 		"esModuleInterop": true,
 		"moduleResolution": "NodeNext",
-		"noImplicitAny": true,
+		"noImplicitAny": false,
 		"baseUrl": "./src",
 		"outDir": "dist", // Types should go into this directory.
 		"declaration": true, // Generate d.ts files

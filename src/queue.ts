@@ -1,21 +1,15 @@
 import { BINANCE, REDIS_CONNECTION_OPTIONS } from "./constants";
 
-import { ENVConfig } from "./config/env.config";
 import { Queue } from "bullmq";
+
+//Can be Add multiple broker API's
+const brokerAPIs = [BINANCE];
+
 
 class AutoTradingLoadBalancer {
 	private queues: Record<string, Queue> = {};
 
 	constructor() {
-		const brokerAPIs = [
-			BINANCE,
-			"Broker2",
-			"Broker3",
-			"Broker4",
-			"Broker5",
-			"Broker6",
-		];
-
 		for (const broker of brokerAPIs) {
 			const queue = new Queue(`OrderQueue-${broker}`, {
 				connection: REDIS_CONNECTION_OPTIONS,
@@ -25,22 +19,29 @@ class AutoTradingLoadBalancer {
 		}
 	}
 
+	/**
+	 * Distributes a job to multiple brokers by adding the job to their respective queues.
+	 *
+	 * @param {any} jobData - the data of the job to be distributed
+	 * @return {Promise<void>} a promise that resolves when the job has been successfully distributed
+	 */
 	public async distributeJob(jobData: any): Promise<void> {
-		const selectedQueue = await this.selectQueueDynamically();
+		try {
+			const addJobPromises = brokerAPIs.map(async (broker) => {
+				await this.queues[broker].add("PlaceOrderJob", jobData);
+			});
 
-		console.debug(
-			"🚀 ~ AutoTradingLoadBalancer ~ distributeJob ~ selectedQueue:",
-			selectedQueue.name
-		);
-
-		if (selectedQueue) {
-			await selectedQueue.add("PlaceOrderJob", jobData);
-			console.log(`Job distributed with : ${jobData}`);
-		} else {
-			console.error("No available queues to distribute the job.");
+			await Promise.all(addJobPromises);
+		} catch (error) {
+			console.error("Error distributing job:", error);
 		}
 	}
 
+	/**
+	 * A function to select a queue dynamically.
+	 *
+	 * @return {Promise<Queue | null>} A promise that resolves with the selected queue or null if no queues are available.
+	 */
 	private async selectQueueDynamically(): Promise<Queue | null> {
 		const availableQueues = await this.getAvailableQueues();
 
@@ -50,6 +51,11 @@ class AutoTradingLoadBalancer {
 		return this.selectQueueBasedLeastJobs(availableQueues);
 	}
 
+	/**
+	 * Retrieves available queues and filters out any null values.
+	 *
+	 * @return {Promise<Queue[]>} An array of available Queue objects
+	 */
 	private async getAvailableQueues(): Promise<Queue[]> {
 		const queueNames = Object.keys(this.queues);
 		const queues = await Promise.all(
@@ -62,6 +68,12 @@ class AutoTradingLoadBalancer {
 		return queues.filter((queue) => queue !== null) as Queue[];
 	}
 
+	/**
+	 * Selects a queue based on the least number of jobs.
+	 *
+	 * @param {Queue[]} queues - An array of queues to choose from.
+	 * @return {Promise<Queue | null>} A promise that resolves to the selected queue or null if no queues are provided.
+	 */
 	private async selectQueueBasedLeastJobs(
 		queues: Queue[]
 	): Promise<Queue | null> {
@@ -79,11 +91,6 @@ class AutoTradingLoadBalancer {
 		// Sort the queues based on the number of waiting jobs
 		queueDetails.sort((a, b) => a.waitingJobCount - b.waitingJobCount);
 
-		console.debug("🚀 ~ AutoTradingLoadBalancer ~ queueDetails:",queueDetails.map(x => {
-			console.log(x.waitingJobCount,x.queue.name);
-		}));
-
-
 		// Find the smallest waiting job count
 		const smallestWaitingJobCount = queueDetails[0].waitingJobCount;
 
@@ -92,15 +99,12 @@ class AutoTradingLoadBalancer {
 			(q) => q.waitingJobCount === smallestWaitingJobCount
 		);
 
-		// // If there are multiple potential queues, choose randomly
-		console.debug("🚀 ~ AutoTradingLoadBalancer ~ Math.floor(Math.random() * potentialQueues.length):", Math.floor(Math.random() * potentialQueues.length));
+		// If there are multiple potential queues, choose randomly
 		const selectedQueue =
 			potentialQueues[Math.floor(Math.random() * potentialQueues.length)].queue;
 
 		return selectedQueue;
 	}
-
-
 }
 
 const autoTradingLoadBalancer = new AutoTradingLoadBalancer();
