@@ -27,15 +27,15 @@ yarn
 ## Step 3: Start the Server in Production Mode
 
 - Launch the server in production mode to initiate the Auto Trading System. Execute the following command:
-
+```bash
 yarn start:prod
+```
 
 ## Step 4: Run Binance Service Script
 
 - Execute the Binance service script to enable communication with the Binance platform. Run the following command:
-
+```bash
 yarn start:binanceService
-
-
+```
 
 These steps will set up and run the Auto Trading System in your environment. Ensure that you have provided accurate configuration values in the .env file for seamless operation.
