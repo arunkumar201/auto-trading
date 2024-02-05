@@ -5,6 +5,7 @@ dotenv.config();
 
 export const PORT = process.env.PORT || 8000;
 export const BINANCE = "binance";
+export const BITGET = "bitget";
 
 export const REDIS_CONNECTION_OPTIONS = {
 	port: parseInt(ENVConfig.REDIS_PORT),

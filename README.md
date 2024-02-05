@@ -38,4 +38,12 @@ yarn start:prod
 yarn start:binanceService
 ```
 
+ 
+## Step 5: Run Bitget Service Script
+
+- Execute the Bitget service script to enable communication with the Bitget platform. Run the following command:
+```bash
+yarn start:bitgetService
+```
+
 These steps will set up and run the Auto Trading System in your environment. Ensure that you have provided accurate configuration values in the .env file for seamless operation.
