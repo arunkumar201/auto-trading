@@ -25,8 +25,11 @@ export const handleAutoTrading = async (req: Request, res: Response) => {
 		quantity: tradingData?.quantity,
 		type: "MARKET",
 	};
+
+	console.debug("🚀 ~ handleAutoTrading ~ jobData:", jobData);
+
 	try {
-		await autoTradingLoadBalancer.distributeJob(JSON.stringify(jobData));
+		// await autoTradingLoadBalancer.distributeJob(JSON.stringify(jobData));
 
 		res.status(200).json({
 			message: "Auto Trading",
