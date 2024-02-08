@@ -2,6 +2,8 @@ const { bitgetClient } = require("./client");
 
 const placeOrder = async (orderData) => {
 	try {
+		console.log("Bitget Order Data", orderData);
+
 		const details = await bitgetClient.submitOrder({
 			orderType: "market",
 			force: "ioc",
@@ -10,7 +12,6 @@ const placeOrder = async (orderData) => {
 			symbol: orderData?.symbol,
 		});
 
-		console.log("Order Placed details", JSON.stringify(details));
 	} catch (error) {
 		console.error("🚀 ~ placeOrder ~ error:", error);
 	}

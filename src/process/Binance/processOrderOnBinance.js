@@ -12,6 +12,7 @@ const processOrderOnBinance = async (job, done) => {
 		quantity: data?.quantity,
 		type: "MARKET",
 	};
+	console.log("Binance OrderData",orderData)
 	await placeOrder(orderData);
 	done();
 };
