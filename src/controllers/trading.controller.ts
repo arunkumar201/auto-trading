@@ -8,7 +8,6 @@ export const handleAutoTrading = async (req: Request, res: Response) => {
 
 	const tradingData = JSON.parse(Object.keys(bodyData)[0]);
 
-	console.log(`Trade signal received: ${tradingData}`);
 	if (!tradingData) {
 		return res.status(200).json({
 			message: "No trading data found",
