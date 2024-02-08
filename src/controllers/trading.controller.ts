@@ -3,12 +3,16 @@ import { Request, Response } from "express";
 import { autoTradingLoadBalancer } from "../queue";
 
 export const handleAutoTrading = async (req: Request, res: Response) => {
-	const tradingData = req.body;
+	const bodyData = req.body;
 
-	console.debug("🚀 ~ handleAutoTrading ~ tradingData:", tradingData);
+	console.debug("🚀 ~ handleAutoTrading ~ bodyData:", bodyData);
 
-	console.log(`Trade signal received: ${JSON.stringify(tradingData)}`);
-	if (!tradingData) {
+	// { '{"side": "Sell", "symbol": "ETHUSD", "quantity": 100.00}': '' }
+
+	const tradingData = JSON.parse(Object.keys(bodyData)[0]);
+
+	console.log(`Trade signal received: ${tradingData}`);
+	if (!tradingData[0]) {
 		res.status(200).json({
 			message: "No trading data found",
 			result: null,
@@ -22,7 +26,7 @@ export const handleAutoTrading = async (req: Request, res: Response) => {
 		type: "MARKET",
 	};
 	try {
-		// await autoTradingLoadBalancer.distributeJob(JSON.stringify(jobData));
+		await autoTradingLoadBalancer.distributeJob(JSON.stringify(jobData));
 
 		res.status(200).json({
 			message: "Auto Trading",
