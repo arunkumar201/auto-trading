@@ -9,7 +9,6 @@
 		"outDir": "dist", // Types should go into this directory.
 		"declaration": true, // Generate d.ts files
 		"pretty": true,
-		// "strict": true,
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
 		"forceConsistentCasingInFileNames": true,
