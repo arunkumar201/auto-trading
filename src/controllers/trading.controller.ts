@@ -16,9 +16,9 @@ export const handleAutoTrading = async (req: Request, res: Response) => {
 	}
 
 	const jobData = {
-		symbol: tradingData?.symbol,
-		side: tradingData?.side,
-		quantity: tradingData?.quantity,
+		symbol: tradingData?.symbol+'T',
+		side: tradingData?.side.toUpperCase(),
+		quantity: tradingData?.quantity.toString(),
 		type: "MARKET",
 	};
 
