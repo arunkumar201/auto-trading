@@ -6,6 +6,9 @@ export const handleAutoTrading = async (req: Request, res: Response) => {
 	const bodyData = req.body;
 
 	const tradingData = JSON.parse(Object.keys(bodyData)[0]);
+	const timestamp = new Date().toLocaleString(); 
+	console.log(`[${timestamp}] Signal Received for ${tradingData?.side}`);
+
 
 	if (!tradingData) {
 		return res.status(200).json({

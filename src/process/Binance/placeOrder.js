@@ -34,8 +34,8 @@ const placeOrder = async (data) => {
 				`Minimum USDT($) required to Place an order on ${orderData?.symbol} is ${notionalFilter.minNotional} or above. Please adjust order quantity.`
 			);
 		} else {
-			console.error("Error placing order:", error);
-			spotClient.logger.error("Error placing order:", error);
+			
+			spotClient.logger.error("Error placing order:", error?.response?.data?.msg);
 		}
 	}
 };
