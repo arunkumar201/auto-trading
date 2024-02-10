@@ -7,14 +7,12 @@ const Binance = require("binance-api-node").default;
 const binanceClient = Binance({
 	apiKey: process.env.BINANCE_KEY,
 	apiSecret: process.env.BINANCE_SECRET,
-	httpBase: "https://testnet.binance.vision",
 	getTime: () => Date.now(),
 });
 
 const spotClient = new Spot(
 	process.env.BINANCE_KEY,
-	process.env.BINANCE_SECRET,
-	{ baseURL: "https://testnet.binance.vision" }
+	process.env.BINANCE_SECRET
 );
 
-module.exports = { spotClient,binanceClient };
+module.exports = { spotClient, binanceClient };
