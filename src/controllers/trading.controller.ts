@@ -5,7 +5,6 @@ import { autoTradingLoadBalancer } from "../queue";
 export const handleAutoTrading = async (req: Request, res: Response) => {
 	const bodyData = req.body;
 
-
 	const tradingData = JSON.parse(Object.keys(bodyData)[0]);
 
 	if (!tradingData) {
@@ -14,15 +13,12 @@ export const handleAutoTrading = async (req: Request, res: Response) => {
 			result: null,
 		});
 	}
-
 	const jobData = {
-		symbol: tradingData?.symbol+'T',
+		symbol: tradingData?.symbol + "T",
 		side: tradingData?.side.toUpperCase(),
-		quantity: tradingData?.quantity.toString(),
+		quantity: tradingData?.quantity,
 		type: "MARKET",
 	};
-
-	console.debug("🚀 ~ handleAutoTrading ~ jobData:", jobData);
 
 	try {
 		await autoTradingLoadBalancer.distributeJob(JSON.stringify(jobData));

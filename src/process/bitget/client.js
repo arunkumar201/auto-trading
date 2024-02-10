@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { SpotClient } = require("bitget-api");
 
 const API_KEY_BITGET = process.env.API_KEY_BITGET;

@@ -3,7 +3,7 @@ import { BINANCE, BITGET, REDIS_CONNECTION_OPTIONS } from "./constants";
 import { Queue } from "bullmq";
 
 //Can be Add multiple broker API's
-const brokerAPIs = [BINANCE, BITGET];
+const brokerAPIs = [BINANCE,BITGET];
 
 class AutoTradingLoadBalancer {
 	private queues: Record<string, Queue> = {};

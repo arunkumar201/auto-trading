@@ -5,14 +5,13 @@ const processOrderOnBinance = async (job, done) => {
 		"------------------Order is Processing on Binance  ---------With job id",
 		job?.id
 	);
-	const data = JSON.parse(job.data);
-	const orderData = {
-		symbol: data?.symbol,
-		side: data?.side,
-		quantity: data?.quantity,
-		type: "MARKET",
-	};
-	console.log("Binance OrderData",orderData)
+	
+	const orderData=JSON.parse(job.data);
+	
+	if (!orderData) {
+		console.log("No Order Data provided");
+		done();
+	}
 	await placeOrder(orderData);
 	done();
 };

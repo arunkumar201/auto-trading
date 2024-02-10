@@ -29,6 +29,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@binance/connector": "^3.2.0",
     "binance-api-node": "^0.12.7",
     "bitget-api": "^2.0.4",
     "body-parser": "^1.20.2",
